@@ -137,7 +137,7 @@ export default function RentBooks(){
                         <div className="flex justify-between gap-5 font">
                             <Button className="w-full text-black bg-[#fc9c04]" component="label" variant="contained" >
                                 <span className="font-bold text-base ">Upload file</span>
-                                <input onChange={uploadBook} type="file" hidden />
+                                <input onChange={uploadBook} type="file" accept="image/*" hidden />
                             </Button>
                         
                             <Button className="w-full h-12 text-black bg-[#fc9c04]" onClick={getFormData} variant="contained" >
