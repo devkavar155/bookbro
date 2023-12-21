@@ -13,12 +13,13 @@ export async function POST(request,response){
                 return {msg:"Please fill all the fields"};
             }
 
-            if(typeof(title) !=="string" || typeof(price) !=="number" || typeof(owner) !=="string" || typeof(image) !=="string"){
+            if(typeof(title) !=="string" || typeof(price) !=="number" || typeof(owner) !=="string" || typeof(image) !=="string" || price.toString()=="NaN"){
                 return {msg:"Invalid Data"};
             }
             if (price<0){
                 return {msg:"Price cannot be negative"};
             }
+
             return true;
         
     }
@@ -28,9 +29,11 @@ export async function POST(request,response){
         const res=await request.json()
         const {title,priceInit,owner,image}=res;
         const price=parseInt(priceInit)
+
+        console.log(title,price,owner,image,'data')
+
         const v=validateData(title,price,owner,image)
         console.log(typeof(title),typeof(price),typeof(owner),typeof(image),'types')
-        console.log(v,"Vvvvvvvvvv")
         if (v===true){
             const conn=await client.connect()
             const db=conn.db('bookohub');

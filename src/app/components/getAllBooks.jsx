@@ -2,6 +2,7 @@
 import {useState,useEffect} from 'react'
 import { IoSearch } from "react-icons/io5";
 import {TextField,Rating,Button,Typography} from '@mui/material';
+import { useUser } from '@clerk/nextjs';
 import Navbar from "./navbar"
 
 export default function GetAllBooks(props){
@@ -15,22 +16,31 @@ export default function GetAllBooks(props){
     const [editButton,setEditButton]=useState(false)
     const [focusedOwner,setFocusedOwner]=useState({"fullName":"","email":"","number":"","city":""})
 
+    const {isSignedIn,user}=useUser()
 
     useEffect(()=>{
-            fetch('/api/browseAllBooks')
-            .then(res=>res.json())
-            .then(res=>{
-                setBooks(res)
-                setAllBooks(res)
-                setFocusedBook({...focusedBook,title:res[0].title,price:res[0].price,image:res[0].image,owner:"Devvrat Rathod",ownerID:res[0].owner,condition:res[0].condition,city:res[0].city,rating:res[0].rating,borrower:""})
-            })
-            fetch('/api/getAllUsers')
-            .then(res=>res.json())
-            .then(res=>{
-                setUsers(res)
-            })
-    }
-    ,[])
+        setBooks(props.books)
+        setAllBooks(props.books)
+        try{
+            setFocusedBook({...focusedBook,title:props.books[0].title,price:props.books[0].price,image:props.books[0].image,owner:"Devvrat Rathod",ownerID:props.books[0].owner,condition:props.books[0].condition,city:props.books[0].city,rating:props.books[0].rating,borrower:""})
+        }
+        catch{
+            if (props.page=="Books Lent")
+                setFocusedBook({...focusedBook,title:"No Books Lent",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:""})
+
+            else if (props.page=="Books Borrowed")
+                setFocusedBook({...focusedBook,title:"No Books Borrowed",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:""})
+
+            else
+                setFocusedBook({...focusedBook,title:"No Books Found",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:""})
+        }
+        fetch('/api/getAllUsers')
+        .then(res=>res.json())
+        .then(res=>{
+            setUsers(res)
+        })
+        
+    },[props.books[0]])
 
     const showFocusedImage=(e)=>{
         const targetElem=e.target.parentNode
@@ -107,18 +117,40 @@ export default function GetAllBooks(props){
             setRentBookStyle("h-96 w-96 bg-[#fc9b01] rounded-xl  absolute right-2 bottom-2 z-10")
         }
         setEditButton(!editButton)
-
         
+    }
+
+    const sendRequestAlert=()=>{
+        fetch("/api/updateBooks",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                // ownerID:focusedBook.ownerID,
+                borrowerID:user.id,
+                bookID:focusedBook._id
+            })
+        })
+        .then(res=>res.json())
+        .then(res=>{
+            if (res.error){
+                alert(res.error)
+            }
+            else{
+                alert("Request Sent")
+            }
+        })
     }
 
 
     return(
-        <div className="w-full h-screen bg-black pl-0 p-2 text-gray-200"> 
+        <div className="w-full h-screen overflow-hidden bg-black pl-0 p-2 text-gray-200"> 
 
             <Navbar 
                 page={props.page}
                 />
-            <div className="flex justify-evenly bg-[#101418] md:pt-12 pb-12 min-[1919px]:pb-28  h-[88%] min-[1919px]:h-[90.3%] scroll-smooth rounded-b-xl fixed w-[85.6%] border-black">
+            <div className="flex justify-evenly bg-[#101418] md:pt-12 pb-12 min-[1919px]:pb-28  overflow-hidden h-[88%] min-[1919px]:h-[90.3%] scroll-smooth rounded-b-xl fixed w-[85.6%] border-black">
                 <div className={``}>
                     <div className={`highLightBooks ${props.width} h-fit md:w-72 min-[1919px]:w-80 text-gray-200`}>
                         <div className=" flex bg-[#3b3b3b] p-5 mb-2 rounded-full">
@@ -218,7 +250,9 @@ export default function GetAllBooks(props){
                                             <hr className='w-full h-0 border-1 border-black'/>
                                         </div>
                                         
-                                        <div className='bg-black text-[#fc9b04] w-fit p-2 rounded-xl absolute right-2 bottom-2'>
+                                        <div className='bg-black text-[#fc9b04] hover:cursor-pointer hover:bg-[#1b1b1b] w-fit p-2 rounded-xl absolute right-2 bottom-2' 
+                                            onClick={sendRequestAlert}
+                                            >
                                             Send Request Alert
                                         </div>
                                     </div>

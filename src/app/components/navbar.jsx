@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useUser,UserButton} from '@clerk/nextjs'
+import Image from 'next/image'
 
 export default function Navbar(props){
     const {isLoaded,isSignedIn,user}=useUser()

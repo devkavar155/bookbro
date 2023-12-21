@@ -57,33 +57,20 @@ export default function SideBar(){
         <div className="w-[16.3%]">
             <div className="Navbar w-[14%] h-screen p-2 bg-black gap-2 text-gray-200 flex flex-col fixed ">
                 <div className=' bg-[#1b1b1b] rounded-xl p-2'>
-                    {/* {
-                        (isSignedIn) &&
-                        (
-                            <div className='flex flex-col justify-center h-fit items-center '>
-                                <img src={user.imageUrl}  className="rounded-[100%] p-3" alt="" />
-                                <div className="flex gap-5 items-center pb-2 text-xl font-medium">
-                                    <Link href="/dashboard">
-                                        {user.firstName}
-                                    </Link>
-                                    <UserButton/>
-                                </div>
-                            </div>   
-                        )
-                    } */}
-                        <Link href="/dashboard/getABook">
-                            <Btn
-                                title="Home"
-                                icon={<GoHomeFill size={20}/>}
-                                />
-                        </Link>
-                        <Link href="/dashboard/getABook">
-                            <Btn
-                                title="Search"
-                                icon={<IoSearch size={20}/>}
-                                />
-                        </Link>
-                    </div>
+
+                    <Link href="/dashboard/getABook">
+                        <Btn
+                            title="Home"
+                            icon={<GoHomeFill size={20}/>}
+                            />
+                    </Link>
+                    <Link href="/dashboard/getABook">
+                        <Btn
+                            title="Search"
+                            icon={<IoSearch size={20}/>}
+                            />
+                    </Link>
+                </div>
 
                 <div className="flex flex-col bg-[#1b1b1b] rounded-xl p-2 text-[90%] min-[1535px]:text-[100%] gap-2">
                     <Link href="/dashboard/booksBorrowed">

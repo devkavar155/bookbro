@@ -4,6 +4,7 @@ import { useEffect ,useState} from "react";
 import LendBookForm from "../../components/lendBooksForm";
 import SideBar from "../../components/sideBar";
 import {isSignedIn ,useUser} from "@clerk/nextjs"
+import { SignIn } from "@clerk/nextjs";
 
 export default function LendBooks(){
 
@@ -18,28 +19,19 @@ export default function LendBooks(){
 
     return (
         <div className="bg-black">
-                {
-
-                    (isSignedIn) &&
-                    <div className="flex bg-[#101418] h-fit">
-                        <SideBar/>
+                <div className="flex bg-[#101418] h-fit">
+                    <SideBar/>
+                    {
+                        (isSignedIn) &&
                         <LendBookForm   
                             page="Lend Book"
                             />
-                    </div>
-                }
-                {(!isSignedIn) &&
-                    <div className="bg-black">
-                        <div className="flex bg-[#101418] h-fit">
-                            <SideBar/>
-                            <div className="w-full text-gray-200"> 
-                                <div className="w-full h-full flex items-center justify-center rounded-xl  bg-[#101418]">
-                                    <h1 className="text-4xl">Please Sign In</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                        || 
+                        (!isSignedIn) &&
+                        window.location.replace("/sign-in")
+                    }
+                </div>
+                        
         </div>
     )
 }

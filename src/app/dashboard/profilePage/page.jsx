@@ -5,6 +5,7 @@ import { TextField,Button } from "@mui/material"
 import Sidebar from "../../components/sideBar"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Navbar from "../../components/navbar"
+import Image from "next/image"
 
 const darkTheme = createTheme({
   palette: {
@@ -197,8 +198,8 @@ export default function ProfilePage() {
                     )
                 }
                 {
-                    (!isSignedIn) &&
-                        <SignIn/>
+                    (!isSignedIn || !user) &&
+                        window.location.replace("/sign-in")
                 }
 
             </div>

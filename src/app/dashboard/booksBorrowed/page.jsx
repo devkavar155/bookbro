@@ -3,6 +3,7 @@ import GetAllBooks from "@/app/components/getAllBooks"
 import { useEffect,useState } from "react"
 import { useUser } from "@clerk/nextjs"
 import Sidebar from "@/app/components/sideBar"
+import SignInPage from "../../sign-in/[[...sign-in]]/page"
 
 export default function BookBorrowed() {
 
@@ -11,21 +12,24 @@ export default function BookBorrowed() {
 
     console.log(user,"user")
     useEffect(()=>{
-        fetch('/api/browseAllBooks')
-        .then(res=>res.json())
-        .then(res=>{
-            console.log(res)
-            const check=res.filter(book=>{
-                if (user && book.borrower==user.id)
-                    return book
-            })
+        if (isSignedIn){
+            fetch('/api/browseAllBooks')
+            .then(res=>res.json())
+            .then(res=>{
+                console.log(res)
+                const check=res.filter(book=>{
+                    if (user && book.borrower==user.id)
+                        return book
+                })
             setBooks(check)
-        })
+            })
+        }
+        
     },[])
 
-
-    return(
-        <div className="flex bg-[#101418] h-screen ">
+    if (isSignedIn && user){
+        return(
+            <div className="flex bg-[#101418] h-screen ">
             <Sidebar/>
                 <GetAllBooks
                     books={books}
@@ -34,7 +38,15 @@ export default function BookBorrowed() {
                     owner="true"
                     page="Books Borrowed"    
                     return="true"
-                />
+                    />
+        </div>
+        )
+    }
+    return (
+        <div className="flex bg-[#101418] h-screen ">
+            {
+                window.location.replace("/sign-in")
+            }
         </div>
     )
 }

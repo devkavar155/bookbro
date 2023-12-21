@@ -28,7 +28,7 @@ export default function RentBooks(){
             },
             body:JSON.stringify({
                 title:formData.title,
-                price:formData.price,
+                priceInit:formData.price,
                 owner:user.id,
                 image:formData.image
             })
