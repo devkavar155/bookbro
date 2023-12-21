@@ -25,15 +25,12 @@ export async function POST(request,response){
     }
 
     try{
-        console.log(request.body)
         const res=await request.json()
         const {title,priceInit,owner,image}=res;
         const price=parseInt(priceInit)
 
-        console.log(title,price,owner,image,'data')
 
         const v=validateData(title,price,owner,image)
-        console.log(typeof(title),typeof(price),typeof(owner),typeof(image),'types')
         if (v===true){
             const conn=await client.connect()
             const db=conn.db('bookohub');
@@ -53,7 +50,6 @@ export async function POST(request,response){
         }       
     }
     catch(err){
-        console.log(err,"-------------------------------------------------------------");
         return NextResponse.json({error:err, msg:"Internal Server Error"});
     }
 }

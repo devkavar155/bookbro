@@ -4,16 +4,11 @@ import {NextResponse} from 'next/server';
 export async function GET(request, response) {
     
     try {
-        console.log(request.nextUrl.searchParams.get("id"));
-        console.log("working")
         const id= request.nextUrl.searchParams.get("id");
-        console.log(id, "id");
 
         const conn = await client.connect();
         const db = conn.db('bookohub');
         const user = await db.collection("registeredUsers").findOne({id: id});
-
-        console.log(user, "user");
 
         return NextResponse.json({user});
     }
