@@ -39,6 +39,7 @@ export default function GetAllBooks(props){
         .then(res=>{
             setUsers(res)
         })
+        .catch(err=>console.log(err))
         
     },[props.books[0]])
 
