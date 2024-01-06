@@ -18,8 +18,8 @@ export default function LendBooks(){
     },[isSignedIn,user])
 
     return (
-        <div className="bg-black">
-                <div className="flex bg-[#101418] h-fit">
+        <div className="bg-black h-screen">
+                <div className="flex bg-[#101418] h-screen">
                     <SideBar/>
                     {
                         (isSignedIn) &&

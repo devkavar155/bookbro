@@ -16,7 +16,7 @@ export default function BookBorrowed() {
             .then(res=>{
                 console.log(res,"res")
                 const check=res.filter(book=>{
-                    if (user && book.owner==user.id && book.borrower.)
+                    if (user && book.owner==user.id && book.borrower)
                     return book
                 })
                 setBooks(check) 
@@ -25,18 +25,26 @@ export default function BookBorrowed() {
         }
     },[isSignedIn,user])
 
-
-    return(
-        <div className="flex h-screen bg-black">
-            <Sidebar/>
-            <GetAllBooks
-                books={books}
-                // width="w-[21%]"
-                // wContainer="w-[24%]"
-                borrower="true"
-                page="Books Lent"
-                returned="true"
-                />
+    if (isSignedIn && user){
+        return(
+            <div className="flex h-screen bg-black">
+                <Sidebar/>
+                <GetAllBooks
+                    books={books}
+                    // width="w-[21%]"
+                    // wContainer="w-[24%]"
+                    borrower="true"
+                    page="Books Lent"
+                    returned="true"
+                    />
+            </div>
+        )
+    }
+    return (
+        <div className="flex bg-[#101418] h-screen ">
+            {   (typeof window !== 'undefined') &&
+                window.location.replace("/sign-in")
+            }
         </div>
     )
 }

@@ -104,19 +104,11 @@ export default function GetAllBooks(props){
         })
         setFocusedBook({...focusedBook,title:filteredBooks[0].title,price:filteredBooks[0].price,image:filteredBooks[0].image})
         setBooks(filteredBooks)
-        // console.log(filteredBooks,"filteredBooks")
     }
 
     const rentBookPopUp=()=>{
         if (editButton){
-            // fetch("/api/getOneUser?id="+focusedBook.ownerID)
-            // .then(res=>res.json())
-            // .then(res=>{
-            //     console.log(res.user,"res")
-            //     setFocusedOwner(res.user)
-
-            // })
-            // console.log(focusedBook.ownerID,"ownerID")
+            
             setRentBookStyle("h-96 w-96 bg-[#fc9b01] rounded-xl hidden absolute duration-300  right-0 bottom-0 z-10")
             
         }

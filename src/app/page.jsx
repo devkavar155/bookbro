@@ -4,6 +4,7 @@ import GetABook from "./dashboard/getABook/page";
 export default function Main() {
 
     useEffect(()=>{
+        
         window.location.replace("/dashboard/getABook")
     },[])
 

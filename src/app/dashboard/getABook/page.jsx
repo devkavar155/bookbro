@@ -24,6 +24,14 @@ export default function BrowseBooks(){
             setBooks(available)
             })
         }
+        else{
+            fetch('/api/browseAllBooks')
+            .then(res=>res.json())
+            .then(res=>{
+                setBooks(res)
+            })
+
+        }
     },[isSignedIn,user])
 
   

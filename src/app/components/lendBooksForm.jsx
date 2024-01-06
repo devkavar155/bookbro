@@ -70,13 +70,13 @@ export default function RentBooks(){
 
     if (isSignedIn){
         return (
-            <div className="p-2 pl-0 bg-black h-screen w-full">
+            <div className="p-2 pl-0 bg-black w-full">
 
             <div className="h-full bg-[#101418] rounded-xl">
                 <Navbar
                     page="Lend A Book"
                 />
-                <div className={`h-full m-auto justify-center items-center ${poppins.className}`}>
+                <div className={`h-max m-auto justify-center items-center ${poppins.className}`}>
                     <form action="" className="flex m-auto bg-white p-8 shadow-lg rounded-xl flex-col w-[500px] gap-5 mt-24">
                         <div className="font-bold text text-4xl">
                             Rent A Book
@@ -137,7 +137,7 @@ export default function RentBooks(){
                         <div className="flex justify-between gap-5 font">
                             <Button className="w-full text-black bg-[#fc9c04]" component="label" variant="contained" >
                                 <span className="font-bold text-base ">Upload file</span>
-                                <input onChange={uploadBook} type="file" accept="image/*" hidden />
+                                  <input onChange={uploadBook} type="file" accept="image/*" hidden />
                             </Button>
                         
                             <Button className="w-full h-12 text-black bg-[#fc9c04]" onClick={getFormData} variant="contained" >
@@ -148,9 +148,9 @@ export default function RentBooks(){
                     </form>
                 </div>
 
-                <Button variant="contained" onClick={checkData}>
+                {/* <Button variant="contained" onClick={checkData}>
                     Checking
-                </Button>
+                </Button> */}
             </div>
             </div>
 
