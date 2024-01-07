@@ -1,8 +1,4 @@
-"use client"
 import SideBar from "@/app/components/sideBar"
-import GetAllBooks from "@/app/components/getAllBooks"
-import { useEffect, useState } from "react"
-import { useUser } from "@clerk/nextjs"
 
 export default function Notifications() {
 
@@ -70,7 +66,7 @@ export default function Notifications() {
                     Stay Tuned
                 </p>                
                 <p>
-                    (●'◡'●)
+                    ●'◡'●
                 </p>                
 
                 
