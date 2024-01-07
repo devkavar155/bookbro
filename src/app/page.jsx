@@ -1,7 +1,7 @@
 "use client"
 import { useEffect } from "react";
 import GetABook from "./dashboard/getABook/page";
-export default function main() {
+export default function Main() {
 
     useEffect(()=>{
         window.location.replace("/dashboard/getABook")
