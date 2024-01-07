@@ -19,7 +19,7 @@ export default function SideBar(){
     const [totalBooks,setTotalBooks]=useState(0)
 
     useEffect(()=>{
-       
+        
         fetch('/api/browseAllBooks')
         .then(res=>res.json())
         .then(res=>{
@@ -32,17 +32,20 @@ export default function SideBar(){
             }
             console.log(books,"books")
         })
-        if (user){
+        
+        if (isSignedIn && user){
+            console.log(user,"usersssssssssssssssss")
+            console.log(user.emailAddresses[0].emailAddress,"email")
             fetch('/api/saveUser',{
                 method:"POST",
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify(user)
+                body:JSON.stringify({id:user.id,email:user.emailAddresses[0].emailAddress,fullName:user.fullName,imageUrl:user.imageUrl})
             })
             .then(res=>res.json())
             .then(res=>{
-                console.log(res)
+                console.log(res,"reqturend api")
             })
             
         }

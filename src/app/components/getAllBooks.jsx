@@ -150,7 +150,7 @@ export default function GetAllBooks(props){
             <Navbar 
                 page={props.page}
                 />
-            <div className="flex justify-evenly bg-[#101418] md:pt-12 pb-12 min-[1919px]:pb-28 overflow-hidden 2xl:h-[90%] min-[1919px]:h-[92.3%] scroll-smooth rounded-b-xl w-full">
+            <div className="flex justify-evenly bg-[#101418] md:pt-12 pb-12 min-[1919px]:pb-28 overflow-hidden h-[87%] md:h-[88%] xl:h-[89.5%] 2xl:h-[90%] min-[1919px]:h-[92.3%] scroll-smooth rounded-b-xl w-full">
                 <div className={``}>
                     <div className={`highLightBooks h-fit md:w-72 min-[1919px]:w-80 text-gray-200`}>
                         <div className=" flex bg-[#3b3b3b] p-5 mb-2 rounded-full">
