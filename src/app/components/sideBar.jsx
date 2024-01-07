@@ -72,7 +72,7 @@ export default function SideBar(){
                     </Link>
                 </div>
 
-                <div className="flex flex-col bg-[#1b1b1b] rounded-xl p-2 text-[90%] min-[1535px]:text-[100%] gap-2">
+                <div className="flex flex-col bg-[#1b1b1b] rounded-xl p-2 text-[80%] xl:text-[90%] min-[1535px]:text-[100%] gap-2">
                     <Link href="/dashboard/booksBorrowed">
                         <Btn
                             title="Books Borrowed"

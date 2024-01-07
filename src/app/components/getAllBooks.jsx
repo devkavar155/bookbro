@@ -46,10 +46,12 @@ export default function GetAllBooks(props){
     const showFocusedImage=(e)=>{
         const targetElem=e.target.parentNode
         const selectedBook=books.filter(book=>book._id==targetElem.children[0].innerText)[0]
-        const user=users.filter(user=>user.id==selectedBook.owner)
+        const currUser=users.filter(currUser=>currUser.id==selectedBook.owner)
+        console.log(currUser,"currUser")
         console.log(selectedBook,"selectBook")
-        if (selectedBook.borrower!=""){
-            const borrowedBy=users.filter(user=>user.id==selectedBook.borrower)
+        if (selectedBook.borrower){
+            const borrowedBy=users.filter(currUser=>currUser.id==selectedBook.borrower)
+
             setBorrower({...borrower,fullName:borrowedBy[0].fullName})
         }
         else{
@@ -60,13 +62,15 @@ export default function GetAllBooks(props){
             title:selectedBook.title,
             price:selectedBook.price,
             image:selectedBook.image,
-            owner:user[0].fullName,
+            owner:currUser[0].fullName,
             condition:selectedBook.condition,
             city:selectedBook.city,
             rating:selectedBook.rating,
             borrower:borrower.fullName,
             ownerID:selectedBook.owner
         })
+        // console.log(currUser,"currUser")
+        setFocusedOwner(currUser[0])
 
     }
     const finalBookTitle=(title)=>{
@@ -104,13 +108,14 @@ export default function GetAllBooks(props){
 
     const rentBookPopUp=()=>{
         if (editButton){
-            fetch("/api/getOneUser?id="+focusedBook.ownerID)
-            .then(res=>res.json())
-            .then(res=>{
-                console.log(res,"res")
-                setFocusedOwner(res.user)
-            })
-            console.log(focusedBook.ownerID,"ownerID")
+            // fetch("/api/getOneUser?id="+focusedBook.ownerID)
+            // .then(res=>res.json())
+            // .then(res=>{
+            //     console.log(res.user,"res")
+            //     setFocusedOwner(res.user)
+
+            // })
+            // console.log(focusedBook.ownerID,"ownerID")
             setRentBookStyle("h-96 w-96 bg-[#fc9b01] rounded-xl hidden absolute duration-300  right-0 bottom-0 z-10")
             
         }
