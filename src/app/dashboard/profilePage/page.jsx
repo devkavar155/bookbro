@@ -27,7 +27,7 @@ export default function ProfilePage() {
     const [editFieldColor,setEditFieldColor]=useState("#dfdfdf")
 
     useEffect(() => {
-        if (isSignedIn){
+        if (isSignedIn && user){
             console.log("else")
             fetch("/api/getOneUser?id="+user.id)
             .then(res=>res.json())
@@ -76,9 +76,9 @@ export default function ProfilePage() {
                 console.log(res,"res")
             })
             console.log("save")
+        }
         setReadOnly(!readOnly)
         setEditButton(!editButton)
-        }
     }
 
 

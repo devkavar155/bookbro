@@ -10,15 +10,15 @@ export default function BookBorrowed() {
     const {isSignedIn,user}=useUser()
     console.log(user,"user")
     useEffect(()=>{
-            fetch('/api/browseAllBooks')
+            fetch('/api/getAllUsers')
             .then(res=>res.json())
             .then(res=>{
                 console.log(res)
                 const check=res.filter(book=>{
-                    if (user && book.owner==user.id && book.borrower!="")
+                    if (user && book.owner==user.id && (book.borrower!="" | book.borrower))
                     return book
                 })
-                setBooks(check)
+                // setBooks(check)
                 console.log(check,"check")
             })
     },[])

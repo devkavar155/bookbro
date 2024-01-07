@@ -26,13 +26,13 @@ export default function GetAllBooks(props){
         }
         catch{
             if (props.page=="Books Lent")
-                setFocusedBook({...focusedBook,title:"No Books Lent",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:""})
+                setFocusedBook({...focusedBook,title:"No Books Lent",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
 
             else if (props.page=="Books Borrowed")
-                setFocusedBook({...focusedBook,title:"No Books Borrowed",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:""})
+                setFocusedBook({...focusedBook,title:"No Books Borrowed",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
 
             else
-                setFocusedBook({...focusedBook,title:"No Books Found",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:""})
+                setFocusedBook({...focusedBook,title:"No Books Found",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
         }
         fetch('/api/getAllUsers')
         .then(res=>res.json())
@@ -67,7 +67,8 @@ export default function GetAllBooks(props){
             city:selectedBook.city,
             rating:selectedBook.rating,
             borrower:borrower.fullName,
-            ownerID:selectedBook.owner
+            ownerID:selectedBook.owner,
+            _id:selectedBook._id 
         })
         // console.log(currUser,"currUser")
         setFocusedOwner(currUser[0])
@@ -127,15 +128,16 @@ export default function GetAllBooks(props){
     }
 
     const sendRequestAlert=()=>{
-        fetch("/api/updateBooks",{
+        console.log(focusedBook._id,"ownerID")
+        fetch("/api/alerts/sendRequestAlert",{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
             },
             body:JSON.stringify({
-                // ownerID:focusedBook.ownerID,
-                borrowerID:user.id,
-                bookID:focusedBook._id
+                requestedBy:user.id,
+                bookId:focusedBook._id,
+                requestedTo:focusedBook.ownerID
             })
         })
         .then(res=>res.json())

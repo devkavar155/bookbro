@@ -1,9 +1,15 @@
+"use client"
 import Link from 'next/link'
 import { useUser,UserButton} from '@clerk/nextjs'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 export default function Navbar(props){
     const {isLoaded,isSignedIn,user}=useUser()
+
+    useEffect(()=>{
+        console.log(user)
+    },[isSignedIn,user])
 
     return (
         <div className='h-20'>
@@ -14,11 +20,9 @@ export default function Navbar(props){
                     <div className='flex gap-4 items-center text-lg font-medium bg-[#1b1b1b] rounded-full py-2 px-4'>
                         {
                             (isSignedIn) &&
-
-                            // (user)  &&
                             <>
                                 {user.firstName}
-                                <UserButton/>
+                                <UserButton afterSignOutUrl='/'/>
                             </>
                         }
                         {

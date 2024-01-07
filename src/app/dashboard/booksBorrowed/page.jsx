@@ -20,7 +20,8 @@ export default function BookBorrowed() {
                     if (user && book.borrower==user.id)
                         return book
                 })
-            setBooks(check)
+                console.log(check,"check")
+                setBooks(check)
             })
         }
         
