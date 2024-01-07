@@ -158,9 +158,9 @@ export default function GetAllBooks(props){
             <Navbar 
                 page={props.page}
                 />
-            <div className="flex justify-evenly bg-[#101418] md:pt-12 pb-12 min-[1919px]:pb-28  overflow-hidden h-[88%] min-[1919px]:h-[90.3%] scroll-smooth rounded-b-xl fixed w-[85.6%] border-black">
+            <div className="flex justify-evenly bg-[#101418] md:pt-12 pb-12 min-[1919px]:pb-28 overflow-hidden 2xl:h-[90%] min-[1919px]:h-[92.3%] scroll-smooth rounded-b-xl w-full">
                 <div className={``}>
-                    <div className={`highLightBooks ${props.width} h-fit md:w-72 min-[1919px]:w-80 text-gray-200`}>
+                    <div className={`highLightBooks h-fit md:w-72 min-[1919px]:w-80 text-gray-200`}>
                         <div className=" flex bg-[#3b3b3b] p-5 mb-2 rounded-full">
                             <IoSearch size={25} className="mr-2 text-white hover:cursor-pointer h-full" />
                             <input placeholder='What do you want to read ?' 
@@ -234,12 +234,12 @@ export default function GetAllBooks(props){
                                                 InputProps={{
                                                     readOnly: true,
                                                 }}
-                                            />
+                                                />
                                             <TextField id="email" label="Email" variant="outlined" value={focusedOwner.email}
                                                 InputProps={{
                                                     readOnly: true,
                                                 }}
-                                            />
+                                                />
                                             <TextField id="number" label="Number" variant="outlined" value={focusedOwner.number}
                                                 InputProps={{
                                                     readOnly: true,
@@ -249,7 +249,7 @@ export default function GetAllBooks(props){
                                                 InputProps={{
                                                     readOnly: true,
                                                 }}
-                                            />
+                                                />
                                         </div>
                                         
                                         <div className='flex items-center gap-2 '>
@@ -299,7 +299,7 @@ export default function GetAllBooks(props){
                                 <div className="mt-5">
                                     <h1 className="text-[20px]">{
                                         finalBookTitle(book.title).toUpperCase()
-                                        }
+                                    }
                                     </h1>
                                     <h2 className="text-xl">₹{book.price}</h2>
                                 </div>

@@ -13,7 +13,7 @@ export default function Navbar(props){
 
     return (
         <div className='h-20'>
-            <div className='fixed w-[85.6%] h-24 text-gray-200 rounded-t-xl border-black bg-[#101418] flex justify-between p-5 px-16' >
+            <div className='w-full h-24 text-gray-200 rounded-t-xl border-black bg-[#101418] flex justify-between p-5 px-16' >
                     <div className='logo '>
                         <img src="../../../logo.png" className='h-[100%] rounded' alt="Image" />
                     </div>

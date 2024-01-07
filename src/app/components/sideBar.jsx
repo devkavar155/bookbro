@@ -54,8 +54,8 @@ export default function SideBar(){
     }
 
     return(
-        <div className="w-[16.3%]">
-            <div className="Navbar w-[14%] h-screen p-2 bg-black gap-2 text-gray-200 flex flex-col fixed ">
+        <div className="">
+            <div className="Navbar p-2 w-max h-screen bg-black gap-2 text-gray-200 flex flex-col ">
                 <div className=' bg-[#1b1b1b] rounded-xl p-2'>
 
                     <Link href="/dashboard/getABook">
@@ -107,7 +107,7 @@ export default function SideBar(){
 
                             />
                     </Link>
-                    <Link href="/dashboard/profilePage">
+                    <Link href="/dashboard/notifications">
                         <Btn
                             title="Notifications"
                             icon={<IoIosNotifications size={20}/>}
@@ -115,7 +115,8 @@ export default function SideBar(){
                     </Link>
 
                 </div>
-                <div className=' bg-[#1b1b1b] rounded-xl h-full p-2'>
+
+                <div className=' bg-[#1b1b1b] rounded-xl h-screen p-2'>
                         <Link href="/dashboard">
                             <Btn
                                 title="Your Collection"
@@ -123,7 +124,7 @@ export default function SideBar(){
                                 />
                         </Link>
 
-                        <div className="pl-4 min-[1919px]:gap-1 flex flex-col font-semibold text-[13px] fixed overflow-hidden opacity-80" key={"bookss"}>
+                        <div className="pl-4 min-[1919px]:gap-1 flex flex-col font-semibold text-[13px] overflow-hidden opacity-80" key={"bookss"}>
                             <div>
 
                         {

@@ -25,7 +25,7 @@ export default function BookBorrowed() {
 
 
     return(
-        <div className="flex h-screen ">
+        <div className="flex h-screen bg-black">
             <Sidebar/>
             <GetAllBooks
                 books={books}

@@ -28,13 +28,12 @@ export default function BrowseBooks(){
 
   
     return (
-        <div className="bg-black">
-            <div className="flex bg-[#101418] h-fit">
+        <div className="bg-black h-screen">
+            <div className="flex h-full">
                 <SideBar/>
                 <GetAllBooks
                     books={books}
-                    width="w-[21%]"
-                    wContainer="w-[24%]"
+                    
                     page="All Library"
                     rent="true"
                     />
