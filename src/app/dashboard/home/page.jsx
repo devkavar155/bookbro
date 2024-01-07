@@ -31,7 +31,8 @@ export default function Home(){
                 <GetAllBooks
                     books={books}
                     page="All Library"
-                    rent="true"
+                    // rent="true"
+                    edit="true"
                     />
             </div>
         </div>

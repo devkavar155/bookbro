@@ -98,88 +98,88 @@ export default function ProfilePage() {
                                             <img src={user.imageUrl}  className="rounded-xl min-[1919px]:h-64 h-44  w-fit bg-[#1b1b1b]" alt="" />
                                             )
                                     }
-                                    <div className="bg-[#1b1b1b] p-4 rounded-xl">
+                                    <div className="bg-[#1b1b1b] p-4 rounded-xl flex flex-col gap-2">
 
-                                    <div className="details w-64 flex flex-col gap-2 ">
-                                        User Details
-                                        <TextField
-                                            disabled={!editButton}
-                                            id="name"
-                                            label="Name"
-                                            value={currentUser.fullName}
-                                            InputProps={{
-                                                readOnly: true,
-                                            }} 
-                                            variant="outlined"
+                                        <div className="details w-64 flex flex-col gap-2 ">
+                                            User Details
+                                            <TextField
+                                                disabled={!editButton}
+                                                id="name"
+                                                label="Name"
+                                                value={currentUser.fullName}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }} 
+                                                variant="outlined"
+                                                />
+
+                                            <TextField
+                                                disabled={!editButton}
+                                                id="email"
+                                                label="Email"
+                                                name="email"
+                                                value={currentUser.email}
+                                                InputProps={{
+                                                    readOnly: true,
+                                                }}           
+                                                variant="outlined"
+                                                
+                                            />
+                                            <TextField
+                                                id="number"
+                                                label="Number"
+                                                value={currentUser.number}
+                                                color="warning"
+                                                name="number"
+                                                variant="outlined"
+                                                InputProps={{
+                                                    readOnly: readOnly,
+                                                }} 
+                                                onChange={(e)=>{
+                                                    setCurrentUser({
+                                                        ...currentUser,
+                                                        number:e.target.value
+                                                    })
+                                                }}
+                                            />
+                                            <TextField
+                                                id="number"
+                                                label="Address"
+                                                value={currentUser.address}
+                                                color="warning"
+                                                variant="outlined"
+                                                InputProps={{
+                                                    readOnly: readOnly,
+                                                    style:{
+                                                        editFieldColor
+                                                    }
+                                                }} 
+                                                onChange={(e)=>{
+                                                    setCurrentUser({
+                                                        ...currentUser,
+                                                        address:e.target.value
+                                                    })
+                                                }}
+                                            />
+                                            <TextField
+                                                id="outlined-read-only-input"
+                                                label="City"
+                                                value={currentUser.city}
+                                                color="warning"
+                                                name="city"
+                                                variant="outlined"
+                                                InputProps={{
+                                                    readOnly: readOnly,
+                                                }} 
+                                                onChange={(e)=>{
+                                                    setCurrentUser({
+                                                        ...currentUser,
+                                                        city:e.target.value
+                                                    })
+                                                }}
                                             />
 
-                                        <TextField
-                                            disabled={!editButton}
-                                            id="email"
-                                            label="Email"
-                                            name="email"
-                                            value={currentUser.email}
-                                            InputProps={{
-                                                readOnly: true,
-                                            }}           
-                                            variant="outlined"
-                                            
-                                        />
-                                        <TextField
-                                            id="number"
-                                            label="Number"
-                                            value={currentUser.number}
-                                            color="warning"
-                                            name="number"
-                                            variant="outlined"
-                                            InputProps={{
-                                                readOnly: readOnly,
-                                            }} 
-                                            onChange={(e)=>{
-                                                setCurrentUser({
-                                                    ...currentUser,
-                                                    number:e.target.value
-                                                })
-                                            }}
-                                        />
-                                        <TextField
-                                            id="number"
-                                            label="Address"
-                                            value={currentUser.address}
-                                            color="warning"
-                                            variant="outlined"
-                                            InputProps={{
-                                                readOnly: readOnly,
-                                                style:{
-                                                    editFieldColor
-                                                }
-                                            }} 
-                                            onChange={(e)=>{
-                                                setCurrentUser({
-                                                    ...currentUser,
-                                                    address:e.target.value
-                                                })
-                                            }}
-                                        />
-                                        <TextField
-                                            id="outlined-read-only-input"
-                                            label="City"
-                                            value={currentUser.city}
-                                            color="warning"
-                                            name="city"
-                                            variant="outlined"
-                                            InputProps={{
-                                                readOnly: readOnly,
-                                            }} 
-                                            onChange={(e)=>{
-                                                setCurrentUser({
-                                                    ...currentUser,
-                                                    city:e.target.value
-                                                })
-                                            }}
-                                        />
-
-                                    </div>
+                                        </div>
 
                                         <div className="bg-[#fc9c04] w-fit rounded ">
                                             <Button onClick={editDetails}>

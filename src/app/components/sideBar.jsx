@@ -23,7 +23,14 @@ export default function SideBar(){
         fetch('/api/browseAllBooks')
         .then(res=>res.json())
         .then(res=>{
-            setBooks(res)
+            console.log(res.length,"lengthhhhhhh")
+            if (res.length<=15){
+                setBooks(res)
+            }
+            else{
+                setBooks(res.slice(0,15))
+            }
+            console.log(books,"books")
         })
         if (user){
             fetch('/api/saveUser',{
@@ -45,7 +52,7 @@ export default function SideBar(){
 
 
     const finalBookTitle=(title)=>{
-        setTotalBooks(totalBooks+1)
+        // setTotalBooks(totalBooks+1)
         if(title.length>13){
             return title.slice(0,13)+"..."
         }
@@ -131,7 +138,7 @@ export default function SideBar(){
                         {
                             
                             books.map((book,index)=>
-                            (user && book.owner==user.id) && totalBooks<13 &&
+                            (user && book.owner==user.id ) &&
                             (
                                 <li key={book._id}>
                                     {finalBookTitle(book.title).toUpperCase()}

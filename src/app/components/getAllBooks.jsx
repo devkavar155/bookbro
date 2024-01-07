@@ -216,6 +216,9 @@ export default function GetAllBooks(props){
                                                         {
                                                             (props.return==="true") &&
                                                             ("Return")
+                                                        }{
+                                                            (props.edit==="true") &&
+                                                            ("Edit")
                                                         }
                                                     </span>
                                                 </Button>
