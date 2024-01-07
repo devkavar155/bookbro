@@ -3,7 +3,7 @@ import SideBar from "@/app/components/sideBar"
 import GetAllBooks from "@/app/components/getAllBooks"
 import { useEffect, useState } from "react"
 
-export default function notifications() {
+export default function Notifications() {
 
     const [requests,setRequests]=useState([])
     const [books,setBooks]=useState([])
