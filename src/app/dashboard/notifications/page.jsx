@@ -2,40 +2,37 @@
 import SideBar from "@/app/components/sideBar"
 import GetAllBooks from "@/app/components/getAllBooks"
 import { useEffect, useState } from "react"
+import { useUser } from "@clerk/nextjs"
 
 export default function Notifications() {
 
-    const [requests,setRequests]=useState([])
+    const {isSignedIn,user}=useUser()
+    const [requestedBooks,setRequestedBooks]=useState({})
     const [books,setBooks]=useState([])
 
-    useEffect(async ()=>{
-        await fetch('/api/getAllUsers')
-        .then(res=>res.json())
-        .then(res=>{
-            const check=res.filter(
-                user=>{
-                    if (user.requests){
-                        return user
-                    }
-                }
-            )
-            setRequests(check)
-            console.log(requests,"requests")
+    const addAllCurrUserBooks=async(user)=>{
+        user.requests.map(async(book)=>{
+            setRequestedBooks({...requestedBooks,[book]:user.id})
         })
-        // await fetch('/api/browseAllBooks')
-        // .then(res=>res.json())
-        // .then(res=>{
-        //     console.log(res,"res")
-        //     const check=res.filter(book=>{
-        //         if (book._id in requests && book.owner==book){
-        //             return book
-        //         }
-        //     })
-        //     setBooks(check)
-        //     console.log(check,"check")
-        // })
+    }
 
-    },[])
+    useEffect(()=>{
+        if (isSignedIn && user){
+
+            fetch('/api/getOneUser?id='+user.id)
+            .then(res=>res.json())
+            .then(res=>{
+                console.log(res,"res")
+                if (res.user.requests){
+                    console.log(user,"usessssssssr")    
+                    addAllCurrUserBooks(user)
+                    return user
+                }
+            })
+            fetch('/api/browseAllBooks')
+            .then(res=>res.json())
+        }
+    },[isSignedIn,user])
 
     return(
         <div className="bg-black h-screen flex">

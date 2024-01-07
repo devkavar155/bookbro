@@ -16,14 +16,3 @@ export async function GET(request, response) {
         return NextResponse.json({error: err});
     }
 }
-// pages/api/getApiRoute.js
-
-// pages/api/getApiRoute.js
-
-// pages/api/getApiRoute.js
-
-// import { NextRequest } from "next/server";
-
-// export async function GET(request) {
-//   return new Response("Hello, Next.js!");
-// }

@@ -16,7 +16,7 @@ import { RxAvatar } from "react-icons/rx";
 export default function SideBar(){
     const {isSignedIn,user}=useUser()
     const [books,setBooks]=useState([])
-    
+    const [totalBooks,setTotalBooks]=useState(0)
 
     useEffect(()=>{
        
@@ -45,6 +45,7 @@ export default function SideBar(){
 
 
     const finalBookTitle=(title)=>{
+        setTotalBooks(totalBooks+1)
         if(title.length>13){
             return title.slice(0,13)+"..."
         }
@@ -58,7 +59,7 @@ export default function SideBar(){
             <div className="Navbar p-2 w-max h-screen bg-black gap-2 text-gray-200 flex flex-col ">
                 <div className=' bg-[#1b1b1b] rounded-xl p-2'>
 
-                    <Link href="/dashboard/getABook">
+                    <Link href="/dashboard/home">
                         <Btn
                             title="Home"
                             icon={<GoHomeFill size={20}/>}
@@ -116,7 +117,7 @@ export default function SideBar(){
 
                 </div>
 
-                <div className=' bg-[#1b1b1b] rounded-xl h-screen p-2'>
+                <div className=' bg-[#1b1b1b] rounded-xl h-full p-2'>
                         <Link href="/dashboard">
                             <Btn
                                 title="Your Collection"
@@ -130,7 +131,7 @@ export default function SideBar(){
                         {
                             
                             books.map((book,index)=>
-                            (user && book.owner==user.id) && 
+                            (user && book.owner==user.id) && totalBooks<13 &&
                             (
                                 <li key={book._id}>
                                     {finalBookTitle(book.title).toUpperCase()}
