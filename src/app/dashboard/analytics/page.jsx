@@ -18,7 +18,7 @@ export default function Analytics() {
                     Stay Tuned
                 </p>                
                 <p>
-                    ●'◡'●
+                    ^_^
                 </p>                
 
                 

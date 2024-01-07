@@ -66,7 +66,7 @@ export default function Notifications() {
                     Stay Tuned
                 </p>                
                 <p>
-                    ●'◡'●
+                    ^_^
                 </p>                
 
                 
