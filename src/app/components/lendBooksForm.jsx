@@ -52,6 +52,7 @@ export default function RentBooks(){
         }
         const f=e.target.files[0];
         const check=reader.readAsDataURL(f);
+        console.log(check,"check")
     }
 
     const getFormData=(e)=>{
@@ -72,7 +73,7 @@ export default function RentBooks(){
         return (
             <div className="p-2 pl-0 bg-black w-full">
 
-            <div className="h-full bg-[#101418] rounded-xl">
+            <div className="h-full bg-[#1b1b1b] rounded-xl">
                 <Navbar
                     page="Lend A Book"
                 />
@@ -136,8 +137,8 @@ export default function RentBooks(){
 
                         <div className="flex justify-between gap-5 font">
                             <Button className="w-full text-black bg-[#fc9c04]" component="label" variant="contained" >
-                                <span className="font-bold text-base ">Upload file</span>
-                                  <input onChange={uploadBook} type="file" accept="image/*" hidden />
+                            <span className="font-bold text-base ">Upload file</span>
+                            <input onChange={uploadBook} type="file" accept="image/*" hidden />
                             </Button>
                         
                             <Button className="w-full h-12 text-black bg-[#fc9c04]" onClick={getFormData} variant="contained" >

@@ -1,17 +1,11 @@
 "use client"
 import { useEffect } from "react";
-import GetABook from "./dashboard/getABook/page";
+import Home from "./dashboard/home/page";
 export default function Main() {
-
-    useEffect(()=>{
-        
-        window.location.replace("/dashboard/getABook")
-    },[])
 
     return (
         <div className="bg-black h-screen overflow-hidden text-white">
-            {/* {window.location.replace("/dashboard/getABook")} */}
-            <GetABook/>
+            <Home/>
         </div>    
     )
 }

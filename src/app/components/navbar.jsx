@@ -13,11 +13,11 @@ export default function Navbar(props){
 
     return (
         <div className='h-20'>
-            <div className='w-full h-24 text-gray-200 rounded-t-xl border-black bg-[#101418] flex justify-between p-5 px-16' >
+            <div className='w-full h-24 text-gray-200 rounded-t-xl border-black bg-[#1b1b1b] flex justify-between p-5 px-16' >
                     <div className='logo '>
                         <img src="../../../logo.png" className='h-[100%] rounded' alt="Image" />
                     </div>
-                    <div className='flex gap-4 items-center text-lg font-medium bg-[#1b1b1b] rounded-full py-2 px-4'>
+                    <div className='flex gap-4 items-center text-lg font-medium bg-[#000000] rounded-full py-2 px-4'>
                         {
                             (isSignedIn) &&
                             <>

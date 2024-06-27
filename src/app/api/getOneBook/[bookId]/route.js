@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import {client} from "../../../lib/mongodb"
+import {client} from "../../../../lib/mongodb"
 import { ObjectId } from "mongodb";
 
-export async function GET(req, res) {
+export async function GET(req, {params}) {
     try{
-        const bookId= req.nextUrl.searchParams.get("bookId");
+        const bookId = params.bookId;
 
         const conn = await client.connect();
         const db = conn.db("bookohub");

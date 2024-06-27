@@ -2,8 +2,8 @@
 
 import { useUser} from "@clerk/nextjs"
 import { useEffect,useState } from "react"
-import SideBar from "../components/sideBar";
-import GetAllBooks from "../components/getAllBooks";
+import SideBar from "../../components/sideBar";
+import GetAllBooks from "../../components/getAllBooks";
 
 export default function Dashboard() {
     
@@ -19,6 +19,9 @@ export default function Dashboard() {
                 if (user && book.owner==user.id)
                     return book
             }))
+            .then(res=>{
+                console.log(res,"res")
+            })
         })
     }, [])
     return (
