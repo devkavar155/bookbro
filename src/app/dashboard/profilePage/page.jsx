@@ -198,7 +198,7 @@ export default function ProfilePage() {
                     )
                 }
                 {
-                    (!isSignedIn || !user) &&
+                    (!isSignedIn && !user) &&
                         window.location.replace("/sign-in")
                 }
 

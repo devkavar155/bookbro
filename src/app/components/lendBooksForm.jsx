@@ -48,7 +48,6 @@ export default function RentBooks(){
     const uploadBook=(e)=>{
         reader.onload=(e)=>{
             setFormData({...formData,image:e.target.result})
-            // setImage(e.target.result)
         }
         const f=e.target.files[0];
         const check=reader.readAsDataURL(f);
