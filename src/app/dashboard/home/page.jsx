@@ -1,40 +1,46 @@
 "use client"
 import SideBar from "@/app/components/sideBar"
 import GetAllBooks from "@/app/components/getAllBooks"
-import { useEffect,useState } from "react"
-import { useUser } from "@clerk/nextjs" 
+import { useEffect, useState } from "react"
+import { useUser } from "@clerk/nextjs"
 
-export default function Home(){
+import { browseAllBooks } from "@/utils/browseAllBooks"
 
-    const [books,setBooks]=useState([])
-    const {isSignedIn,user}=useUser()
+export default function Home() {
 
-    useEffect(()=>{
-        if (isSignedIn && user){
+    const [books, setBooks] = useState([])
+    const { isSignedIn, user } = useUser()
 
-            fetch('/api/browseAllBooks')
-            .then(res=>res.json())
-            .then(res=>{
-                const check=res.filter(book=>{
-                    if (book.owner==user.id)
+    const getBooks = async () => {
+        const currBooks = await browseAllBooks()
+        // console.log(currBooks, "currBooks")
+        if (isSignedIn && user) {
+            const check = currBooks.filter(book => {
+                if (book.owner != user.id)
                     return book
-                })
-                setBooks(check)
             })
+            console.log(check, "check")
+            setBooks(check)
         }
-    },[isSignedIn,user])
-    
-    if (isSignedIn && user){
-        return(
+        else {
+            setBooks(currBooks)
+        }
+    }
+    useEffect(() => {
+        getBooks()
+    }, [isSignedIn, user])
+
+    if (isSignedIn && user) {
+        return (
             <div className="bg-black h-screen">
                 <div className="flex h-full">
-                    <SideBar/>
+                    <SideBar />
                     <GetAllBooks
                         books={books}
                         page="All Library"
-                        // rent="true"
-                        edit="true"
-                        />
+                        rent="true"
+                    // edit="true"
+                    />
                 </div>
             </div>
         )

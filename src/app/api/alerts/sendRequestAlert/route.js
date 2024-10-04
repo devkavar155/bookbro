@@ -15,7 +15,15 @@ export async function POST(req, res) {
         }
         const user = await db.collection("registeredUsers").findOneAndUpdate({ id: requestedTo }, { $push: { requests: { bookId: bookId, requestedBy: requestedBy } } });
 
-        return NextResponse.json({ message: user});
+            // push the requestBy int the requestedBy array  in the bookOnRent collection
+
+        const book = await db.collection("bookOnRent").findOneAndUpdate({ id: requestedTo }, { $push: { requests: {bookId: bookId, requestedBy: requestedBy} } });
+        
+        
+        // const book = await db.collection("bookOnRent").findOneAndUpdate({ id: requestedTo }, {$push: { requestedBy: requestedBy }});
+        // const book = await db.collection("bookOnRent").findOneAndUpdate({ id: requestedTo }, { $push: { requests: { bookId: bookId, requestedBy: requestedBy } } });
+
+        return NextResponse.json({ message: book, book: book});
     }
     catch (err) {
         console.log(err);

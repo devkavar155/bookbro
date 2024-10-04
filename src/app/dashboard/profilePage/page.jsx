@@ -26,10 +26,12 @@ export default function ProfilePage() {
     const [editButton,setEditButton]=useState(true)
     const [editFieldColor,setEditFieldColor]=useState("#dfdfdf")
 
+    const [check,setCheck]=useState(false)
+
     useEffect(() => {
         if (isSignedIn && user){
             console.log("else")
-            fetch("/api/getOneUser?id="+user.id)
+            fetch("/api/getOneUser/"+user.id)
             .then(res=>res.json())
             .then(res=>{
                 setCurrentUser({
@@ -41,6 +43,7 @@ export default function ProfilePage() {
                     city:res.user.city,
                     number:res.user.number
                 })
+                setCheck(true)
                 setDifferentUser(false)
             })
         }
@@ -90,15 +93,15 @@ export default function ProfilePage() {
                     (isSignedIn) &&(
                         <div className="bg-black min-[1919px]:h-[92%] h-[90%] w-full p-2 pl-0">
                             <Navbar></Navbar>
-                            <div className="bg-[#101418] h-full w-[100.15%] min-[1919px]:w-full text-gray-200 rounded-xl">
-                                <div className="w-fit h-full flex flex-col min-[1919px]:gap-20 min-[1919px]:p-14 p-8 px-16 gap-10">
+                            <div className="bg-[#1b1b1b] h-full w-[100.15%] min-[1919px]:w-full text-gray-200 rounded-xl">
+                                <div className="w-fit h-full flex min-[1919px]:gap-20 min-[1919px]:p-14 p-8 px-16 gap-10">
                                     {
                                         (isSignedIn) &&
                                         (
                                             <img src={user.imageUrl}  className="rounded-xl min-[1919px]:h-64 h-44  w-fit bg-[#1b1b1b]" alt="" />
                                             )
                                     }
-                                    <div className="bg-[#1b1b1b] p-4 rounded-xl flex flex-col gap-2">
+                                    <div className="bg-[#1b1b1b] p-4 rounded-xl flex flex-col gap-2 h-fit">
 
                                         <div className="details w-64 flex flex-col gap-2 ">
                                             User Details

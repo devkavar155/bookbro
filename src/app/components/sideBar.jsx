@@ -1,85 +1,85 @@
 "use client"
-import {useState,useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { IoSearch } from "react-icons/io5";
 import Link from 'next/link'
 import { SiBookstack } from "react-icons/si";
-import { TbBooks,TbBooksOff } from "react-icons/tb";
+import { TbBooks, TbBooksOff } from "react-icons/tb";
 import Btn from "./button";
 import { IoBookSharp } from "react-icons/io5";
 import { TfiStatsUp } from "react-icons/tfi";
-import { useUser} from '@clerk/nextjs'
+import { useUser } from '@clerk/nextjs'
 import { IoIosNotifications } from "react-icons/io";
 import { GoHomeFill } from "react-icons/go";
 import { RxAvatar } from "react-icons/rx";
 
 
-export default function SideBar(){
-    const {isSignedIn,user}=useUser()
-    const [books,setBooks]=useState([])
-    const [totalBooks,setTotalBooks]=useState(0)
+export default function SideBar() {
+    const { isSignedIn, user } = useUser()
+    const [books, setBooks] = useState([])
+    const [totalBooks, setTotalBooks] = useState(0)
 
-    useEffect(()=>{
-        
+    useEffect(() => {
+
         fetch('/api/browseAllBooks')
-        .then(res=>res.json())
-        .then(res=>{
-            console.log(res.length,"lengthhhhhhh")
-            if (res.length<=15){
-                setBooks(res)
-            }
-            else{
-                setBooks(res.slice(0,15))
-            }
-            console.log(books,"books")
-        })
-        
-        if (isSignedIn && user){
-            console.log(user,"usersssssssssssssssss")
-            console.log(user.emailAddresses[0].emailAddress,"email")
-            fetch('/api/saveUser',{
-                method:"POST",
-                headers:{
-                    'Content-Type':'application/json'
+            .then(res => res.json())
+            .then(res => {
+                // console.log(res.length, "lengthhhhhhh")
+                if (res.length <= 12) {
+                    setBooks(res)
+                }
+                else {
+                    setBooks(res.slice(0, 10))
+                }
+                // console.log(books, "books")
+            })
+
+        if (isSignedIn && user) {
+            // console.log(user, "usersssssssssssssssss")
+            // console.log(user.emailAddresses[0].emailAddress, "email")
+            fetch('/api/saveUser', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                body:JSON.stringify({id:user.id,email:user.emailAddresses[0].emailAddress,fullName:user.fullName,imageUrl:user.imageUrl})
+                body: JSON.stringify({ id: user.id, email: user.emailAddresses[0].emailAddress, fullName: user.fullName, imageUrl: user.imageUrl })
             })
-            .then(res=>res.json())
-            .then(res=>{
-                console.log(res,"reqturend api")
-            })
-            
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res, "reqturend api")
+                })
+
         }
-        console.log(user,"user")
+        // console.log(user, "user")
 
-    },[isSignedIn,user])
+    }, [isSignedIn, user])
 
 
-    const finalBookTitle=(title)=>{
+    const finalBookTitle = (title) => {
         // setTotalBooks(totalBooks+1)
-        if(title.length>13){
-            return title.slice(0,13)+"..."
+        if (title.length > 13) {
+            return title.slice(0, 11) + "..."
         }
-        else{
+        else {
             return title
         }
     }
 
-    return(
-        <div className="">
+    return (
+        <div className="h-screen">
             <div className="Navbar p-2 w-max h-screen bg-black gap-2 text-gray-200 flex flex-col ">
                 <div className=' bg-[#1b1b1b] rounded-xl p-2'>
 
                     <Link href="/dashboard/home">
                         <Btn
                             title="Home"
-                            icon={<GoHomeFill size={20}/>}
-                            />
+                            icon={<GoHomeFill size={20} />}
+                        />
                     </Link>
-                    <Link href="/dashboard/getABook">
+                    <Link href="/dashboard/home">
                         <Btn
                             title="Search"
-                            icon={<IoSearch size={20}/>}
-                            />
+                            icon={<IoSearch size={20} />}
+                        />
                     </Link>
                 </div>
 
@@ -87,73 +87,73 @@ export default function SideBar(){
                     <Link href="/dashboard/booksBorrowed">
                         <Btn
                             title="Books Borrowed"
-                            icon={<TbBooks size={20}/>}
-                            >
+                            icon={<TbBooks size={20} />}
+                        >
                         </Btn>
                     </Link>
                     <Link href="/dashboard/booksLent">
                         <Btn
                             title="Books Lent"
-                            icon={<TbBooksOff size={20}/>}
-                            />
+                            icon={<TbBooksOff size={20} />}
+                        />
                     </Link>
 
                     <Link href="/dashboard/lendBooks">
                         <Btn
                             title="Lend a Book"
-                            icon={<IoBookSharp size={20}/>}
-                            />
+                            icon={<IoBookSharp size={20} />}
+                        />
                     </Link>
 
                     <Link href="/dashboard/analytics">
                         <Btn
                             title="Analytics"
-                            icon={<TfiStatsUp size={20}/>}
-                            />
+                            icon={<TfiStatsUp size={20} />}
+                        />
                     </Link>
                     <Link href="/dashboard/profilePage">
                         <Btn
                             title="Profile"
-                            icon={<RxAvatar size={20}/>}
+                            icon={<RxAvatar size={20} />}
 
-                            />
+                        />
                     </Link>
                     <Link href="/dashboard/notifications">
                         <Btn
                             title="Notifications"
-                            icon={<IoIosNotifications size={20}/>}
-                            />
+                            icon={<IoIosNotifications size={20} />}
+                        />
                     </Link>
 
                 </div>
 
                 <div className=' bg-[#1b1b1b] rounded-xl h-full p-2'>
-                        <Link href="/dashboard">
-                            <Btn
-                                title="Your Collection"
-                                icon={<SiBookstack size={20}/>}
-                                />
-                        </Link>
+                    <Link href="/dashboard">
+                        <Btn
+                            title="Your Collection"
+                            icon={<SiBookstack size={20} />}
+                        />
+                    </Link>
 
-                        <div className="pl-4 min-[1919px]:gap-1 flex flex-col font-semibold text-[13px] overflow-hidden opacity-80" key={"bookss"}>
-                            <div>
+                    <div className="pl-4 min-[1919px]:gap-1 flex flex-col font-semibold text-[13px] overflow-hidden opacity-80" key={"bookss"}>
+                        <div>
 
-                        {
-                            
-                            books.map((book,index)=>
-                            (user && book.owner==user.id ) &&
-                            (
-                                <li key={book._id}>
-                                    {finalBookTitle(book.title).toUpperCase()}
-                                </li>
-                                )
+                            {
+
+                                books.map((book, index) =>
+                                    (user && book.owner == user.id) &&
+                                    (
+                                        <li key={book._id}>
+                                            {finalBookTitle(book.title).toUpperCase()}
+                                        </li>
+                                    )
                                 )
                             }
-                            </div>
-
                         </div>
+
+                    </div>
                 </div>
-            </div>  
+            </div>
         </div>
     )
 }

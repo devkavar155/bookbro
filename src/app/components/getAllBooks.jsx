@@ -4,13 +4,15 @@ import { IoSearch } from "react-icons/io5";
 import {TextField,Rating,Button,Typography} from '@mui/material';
 import { useUser } from '@clerk/nextjs';
 import Navbar from "./navbar"
+import { motion } from 'framer-motion';
+
 
 export default function GetAllBooks(props){
 
     const [books,setBooks] = useState(props.books)
     const [users,setUsers] = useState([])
     const [allBooks,setAllBooks] = useState([])
-    const [focusedBook,setFocusedBook] = useState({"title":"","price":"","image":"","owner":"","condition":"","city":"","rating":""})
+    const [focusedBook,setFocusedBook] = useState({title:"",image:"",owner:"",condition:"",city:"",rating:""})
     const [borrower,setBorrower]=useState([{fullName:""}])
     const [rentBookStyle,setRentBookStyle]=useState("h-96 w-96 bg-[#1b1b1b] hidden rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2")
     const [editButton,setEditButton]=useState(false)
@@ -22,17 +24,17 @@ export default function GetAllBooks(props){
         setBooks(props.books)
         setAllBooks(props.books)
         try{
-            setFocusedBook({...focusedBook,title:props.books[0].title,price:props.books[0].price,image:props.books[0].image,owner:"Devvrat Rathod",ownerID:props.books[0].owner,condition:props.books[0].condition,city:props.books[0].city,rating:props.books[0].rating,borrower:""})
+            setFocusedBook({...focusedBook,title:props.books[0].title,image:props.books[0].image,owner:"Devvrat Rathod",ownerID:props.books[0].owner,condition:props.books[0].condition,city:props.books[0].city,rating:props.books[0].rating,borrower:""})
         }
         catch{
             if (props.page=="Books Lent")
-                setFocusedBook({...focusedBook,title:"No Books Lent",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
+                setFocusedBook({...focusedBook,title:"No Books Lent",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
 
             else if (props.page=="Books Borrowed")
-                setFocusedBook({...focusedBook,title:"No Books Borrowed",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
+                setFocusedBook({...focusedBook,title:"No Books Borrowed",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
 
             else
-                setFocusedBook({...focusedBook,title:"No Books Found",price:"",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
+                setFocusedBook({...focusedBook,title:"No Books Found",image:"",owner:"",condition:"",city:"",rating:"",borrower:"",ownerId:""})
         }
         fetch('/api/getAllUsers')
         .then(res=>res.json())
@@ -58,9 +60,10 @@ export default function GetAllBooks(props){
             setBorrower({...borrower,fullName:""})
         }
         console.log(borrower,"borrowedBy")
+        
+
         setFocusedBook({...focusedBook,
             title:selectedBook.title,
-            price:selectedBook.price,
             image:selectedBook.image,
             owner:currUser[0].fullName,
             condition:selectedBook.condition,
@@ -75,11 +78,17 @@ export default function GetAllBooks(props){
 
     }
     const finalBookTitle=(title)=>{
-        if(title.length>13){
-            return title.slice(0,13)+"..."
+        try{
+
+            if(title.length>13){
+                return title.slice(0,13)+"..."
+            }
+            else{
+                return title
+            }
         }
-        else{
-            return title
+        catch{
+            return "Meow"
         }
     }
     const bookSearch=(e)=>{
@@ -102,7 +111,7 @@ export default function GetAllBooks(props){
                 return book
             }
         })
-        setFocusedBook({...focusedBook,title:filteredBooks[0].title,price:filteredBooks[0].price,image:filteredBooks[0].image})
+        setFocusedBook({...focusedBook,title:filteredBooks[0].title,image:filteredBooks[0].image})
         setBooks(filteredBooks)
     }
 
@@ -121,6 +130,8 @@ export default function GetAllBooks(props){
 
     const sendRequestAlert=()=>{
         console.log(focusedBook._id,"ownerID")
+        console.log(focusedBook.ownerID,"ownerID")
+        console.log(user.id,"ownerID")
         fetch("/api/alerts/sendRequestAlert",{
             method:"POST",
             headers:{
@@ -138,6 +149,7 @@ export default function GetAllBooks(props){
                 alert(res.error)
             }
             else{
+                console.log(res,"res")
                 alert("Request Sent")
             }
         })
@@ -150,8 +162,7 @@ export default function GetAllBooks(props){
             <Navbar 
                 page={props.page}
                 />
-            <div className="flex justify-evenly bg-[#101418] md:pt-12 pb-12 min-[1919px]:pb-28 overflow-hidden h-[87%] md:h-[88%] xl:h-[89.5%] 2xl:h-[90%] min-[1919px]:h-[92.3%] scroll-smooth rounded-b-xl w-full">
-                <div className={``}>
+            <div className="sm:flex block sm:mb-0 mb-10 justify-evenly bg-[#1b1b1b] md:pt-12 pb-12 min-[1919px]:pb-28 overflow-hidden h-[87%] md:h-[88%] xl:h-[89.5%] 2xl:h-[90%] min-[1919px]:h-[92.3%] scroll-smooth rounded-b-xl w-full">
                     <div className={`highLightBooks h-fit md:w-72 min-[1919px]:w-80 text-gray-200`}>
                         <div className=" flex bg-[#3b3b3b] p-5 mb-2 rounded-full">
                             <IoSearch size={25} className="mr-2 text-white hover:cursor-pointer h-full" />
@@ -163,7 +174,7 @@ export default function GetAllBooks(props){
                         </div>
                 
 
-                        <div className={`bg-[#1b1b1b] p-5  rounded-xl`}>
+                        <div className={`bg-[#4b4b4b] p-5  rounded-xl`}>
 
                             <div className="">
                                 <img className="h-[275px] min-[1919px]:h-[400px] rounded-xl object-cover" src={focusedBook.image} alt="Image"/>
@@ -190,16 +201,17 @@ export default function GetAllBooks(props){
                                 <div key={"city"} className=' font-medium'>
                                     {focusedBook.city}
                                 </div>
-                                <div key={"price"} className="text-4xl text-white font-extrabold flex justify-between items-center">
-                                    ₹{focusedBook.price}
-                                    {
-                                        (<div onClick={rentBookPopUp} className='ml-5'>
-                                            <Typography className='bg-[#fc9b04] rounded-xl p-1  font-semibold'>
+                                <div key={"price"} className="text-4xl  text-white font-extrabold flex justify-between items-center">
+                                    {(
+                                        <motion.div 
+                                            whileTap={{scale:0.9}}
+                                        onClick={rentBookPopUp} className='w-full'>
+                                            <Typography className='bg-[#fc9b04] rounded-xl p-1 text-center  font-semibold'>
                                                 <Button size='small' >
                                                     <span className='text-xl text-black font-bold'> 
                                                         {
                                                             (props.rent==="true") &&
-                                                            ("Rent")
+                                                            ("Borrow")
                                                         }
                                                         {
                                                             (props.returned==="true") &&
@@ -215,8 +227,8 @@ export default function GetAllBooks(props){
                                                     </span>
                                                 </Button>
                                             </Typography>
-                                        </div>)                                    
-                                    }
+                                        </motion.div>
+                                    )}
                                 </div>
 
                                 <div className={rentBookStyle}>
@@ -253,11 +265,13 @@ export default function GetAllBooks(props){
                                             <hr className='w-full h-0 border-1 border-black'/>
                                         </div>
                                         
-                                        <div className='bg-black text-[#fc9b04] hover:cursor-pointer hover:bg-[#1b1b1b] w-fit p-2 rounded-xl absolute right-2 bottom-2' 
+                                        <motion.div 
+                                            whileTap={{scale:0.9}}
+                                            className='bg-black text-[#fc9b04] hover:cursor-pointer hover:bg-[#1b1b1b] w-fit p-2 rounded-xl absolute right-2 bottom-2' 
                                             onClick={sendRequestAlert}
                                             >
                                             Send Request Alert
-                                        </div>
+                                        </motion.div>
                                     </div>
                                 </div>
 
@@ -271,7 +285,7 @@ export default function GetAllBooks(props){
                                         ) ||
                                         (props.owner==="true") &&
                                         (   <>
-                                                Seller - {focusedBook.owner}
+                                                Owner - {focusedBook.owner}
                                             </>
                                         )
                                     }
@@ -281,22 +295,21 @@ export default function GetAllBooks(props){
                         </div>
 
                     </div>
-                </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 desktop:grid-cols-5 justify-items-center gap-y-24 gap-x-5 min-[1919px]:gap-x-10 overflow-auto scroll-smooth border-8 border-[#1b1b1b] bg-[#1b1b1b] rounded-xl">
+                <div className="grid sm:grid-cols-2 grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 desktop:grid-cols-5 justify-items-center gap-y-24 gap-x-5 min-[1919px]:gap-x-10 sm:overflow-auto scroll-smooth border-8 border-[#4b4b4b] bg-[#4b4b4b] rounded-xl">
                     {   
                         books.map(book=>(
                             <div className="w-48  rounded-xl fit opacity-90" key={book._id} >
                                 <div className="hidden" name="id">
                                     {book._id}
                                 </div>
-                                <img className="h-56 object-none rounded-xl w-48" onClick={showFocusedImage} src={book.image} alt="Images" />
+                                <img className="h-56 object-cover rounded-xl w-48" onClick={showFocusedImage} src={book.image} alt="Images" />
                                 <div className="mt-5">
                                     <h1 className="text-[20px]">{
                                         finalBookTitle(book.title).toUpperCase()
                                     }
                                     </h1>
-                                    <h2 className="text-xl">₹{book.price}</h2>
+                                    {/* <h2 className="text-xl">₹{book.price}</h2> */}
                                 </div>
                             </div>
                         )
