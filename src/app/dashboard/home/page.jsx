@@ -15,6 +15,7 @@ export default function Home() {
         const currBooks = await browseAllBooks()
         // console.log(currBooks, "currBooks")
         if (isSignedIn && user) {
+            console.log("currBooks", currBooks)
             const check = currBooks.filter(book => {
                 if (book.owner != user.id)
                     return book

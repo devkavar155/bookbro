@@ -29,7 +29,15 @@ export default function BookBorrowed() {
         return(
             <div className="flex h-screen bg-black">
                 <Sidebar/>
-                <GetAllBooks
+
+                {
+                    (books.length==0) &&
+                    <div className="flex items-center justify-center w-full h-full text-white text-2xl">No Books Lent</div>
+                }
+                {
+                    (books.length>0) &&
+                    
+                    <GetAllBooks
                     books={books}
                     // width="w-[21%]"
                     // wContainer="w-[24%]"
@@ -37,6 +45,7 @@ export default function BookBorrowed() {
                     page="Books Lent"
                     returned="true"
                     />
+                }
             </div>
         )
     }

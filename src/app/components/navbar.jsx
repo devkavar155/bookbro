@@ -17,7 +17,7 @@ export default function Navbar(props){
                     <div className='logo '>
                         <img src="../../../logo.png" className='h-[100%] rounded' alt="Image" />
                     </div>
-                    <div className='flex gap-4 items-center text-lg font-medium bg-[#000000] rounded-full py-2 px-4'>
+                    <div className='flex gap-4 items-center text-lg font-medium bg-[#4b4b4b] rounded-full py-2 px-4'>
                         {
                             (isSignedIn) &&
                             <>

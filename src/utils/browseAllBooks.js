@@ -13,8 +13,10 @@ export const browseAllBooks = async () => {
             .then(res => {
                 return res
             })
+
+            console.log("allBooks", allBooks)
             
-            window.sessionStorage.setItem("allBooks", JSON.stringify(allBooks));
+            // window.sessionStorage.setItem("allBooks", JSON.stringify(allBooks));
             
             return allBooks;
         }
