@@ -2,8 +2,8 @@ import {client} from '../../../lib/mongodb';
 import { NextResponse } from 'next/server';
 
 export async function POST(request, response) {
+    
     try {
-
         const data=await request.json();
 
         const {id,email,fullName,imageUrl}=data;
@@ -11,7 +11,8 @@ export async function POST(request, response) {
         const conn = await client.connect();
         const db = conn.db('bookohub');
         const user=await db.collection("registeredUsers").findOne({email:email});
-        // console.log(user,"request cameeeeee");
+        console.log(user,"request cameeeeee");
+        
         if (!user){
             await db.collection("registeredUsers").insertOne({
                 email:email,
