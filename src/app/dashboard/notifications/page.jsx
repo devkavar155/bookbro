@@ -14,25 +14,34 @@ export default function Notifications() {
 
     const [currUser, setCurrUser] = useState({})
 
-
+    // const [currBook, setCurrBook] = useState([])
 
     const traverseBooks = async (currUser) => {
         console.log(currUser, "currUser from notificaiton")
-        const tempBooks = []
+        let temps = []
         currUser.user.requests.map(async (request) => {
             // const tempBook = await getEachBookInfo(request.bookId)
             const tempBook = await fetch('/api/getOneBook/' + request.bookId)
+            .then(res => {
+                console.log(res, "res")
+                return res
+            })
             .then(res => res.json())
             .then(res => {
+                temps.push(res)
+                console.log(res, "res")
+                setBooks([...books, res])
                 return res
             })
             .then(res => {
-                const curr = books
-                curr.push(res)
-                console.log(res, "currBook insiide res")
-                setBooks([...books, curr])
+                console.log(temps, "currBook insiide res")
+                setBooks(temps)
             })
         })
+
+        setTimeout(() => {
+            console.log(books, "books 50000")
+        }, 10000)
     }
 
 
